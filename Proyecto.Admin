@@ -1,0 +1,166 @@
+package Administracion;
+import Comunidad.Cliente;
+import Comunidad.TipoCliente;
+import Comunidad.Proveedor;
+import Comunidad.Servicio;
+import java.util.Scanner;
+import java.util.ArrayList;
+
+public class Admin extends Base{
+
+  public ArrayList<Cliente> listaClientes;
+  public ArrayList<Proveedor> listaProveedores;
+  public ArrayList<Servicio> listaServicios;
+  public ArrayList<Usuario> listaUsuarios;
+
+
+  public Admin(String nom_usuario,String contra){
+    super(nom_usuario, contra);
+    id = "Administrador";
+    nivel = "admin";
+  }
+
+
+  public void Administrar_servicios(){
+    Scanner sc = new Scanner(System.in);
+    for (Servicio a: listaServicios){
+      System.out.println(a.getCodigo()+a.getNombre()+a.getPrecio());
+    }
+    boolean salir = false;
+    int opcion;
+    do{
+      System.out.println("1. Agregar Servicio");
+      System.out.println("2. Editar Servicio");
+      System.out.println("3. Regresar al menú principal");
+      System.out.println("Escribe una de las opciones");
+      opcion = sc.nextInt();
+      switch (opcion){
+        case 1:
+          System.out.println("1. Has seleccionado la opcion 1.2");    
+          System.out.println("Ingrese el nombre del servicio:");
+          String nombre = sc.nextLine();
+          System.out.println("Ingrese el precio del servicio:");
+          double precio = sc.nextDouble();
+         
+         listaServicios.add(new Servicio("",nombre,precio));
+        case 2:
+          System.out.println("Ingrese el nombre del servicio:");
+          String nombre1 = sc.nextLine();
+          for (Servicio a: listaServicios){
+            if (a.getNombre() == nombre1){
+              Servicio servicio1 = (Servicio) a;
+              System.out.println("Ingrese el nuevo precio del servicio:");
+              double precio2 = sc.nextDouble();
+              servicio1.setPrecio(precio2);
+            } 
+          }
+          break;
+        case 3:
+          salir = true;
+          break;   
+      }
+    }while(!salir);
+    sc.close();
+  }
+  
+  
+  public void Administrar_clientes(){
+    Scanner sc = new Scanner(System.in);
+    for (Cliente a: listaClientes){
+      System.out.println(a.getCodigo()+a.getNombre()+a.getDireccion()+"a.getTelefono()"+"a.getTipo()");
+    }
+    boolean salir = false;
+    int opcion;
+    do{
+      System.out.println("1. Administrar Clientes");
+      System.out.println("2. Regresar al menú principal");
+      System.out.println("Escribe una de las opciones");
+      opcion = sc.nextInt();
+      switch (opcion){
+        case 1:
+          System.out.println("Has seleccionado la opcion 1.1");
+          System.out.println("Ingrese el nombre del cliente:");
+          String nombre = sc.nextLine();
+          System.out.println("Ingrese la direccion del cliente:");
+          String direccion = sc.nextLine();
+          System.out.println("Ingrese el telefono del cliente:");
+          String telefono = sc.nextLine();
+          System.out.println("Ingrese el tipo del cliente:");
+          String alfa = sc.nextLine();
+          if (alfa == "PERSONAL" )
+            listaClientes.add(new Cliente("",nombre,direccion,telefono,TipoCliente.PERSONAL));
+          else if (alfa == "EMPRESARIAL")
+            listaClientes.add(new Cliente("",nombre,direccion,telefono,TipoCliente.EMPRESARIAL));
+          break;
+        case 2:
+          salir = true;
+          break;
+      } 
+    } while(!salir);
+    sc.close();
+  }
+
+  
+  public void Administrar_proovedores(){
+    Scanner sc = new Scanner(System.in);
+    for (Proveedor a: listaProveedores){
+      System.out.println(a.getCodigo()+a.getNombre()+a.getDireccion()+a.getTelefono());
+    }
+    boolean salir = false;
+    int opcion;
+    do{
+      System.out.println("1. Agregar Proveedor");
+      System.out.println("2. Regresar al menú principal");
+      System.out.println("Escribe una de las opciones");
+      opcion = sc.nextInt();
+      switch (opcion){
+        case 1:
+          System.out.println("1. Has seleccionado la opcion 1.2");    
+          System.out.println("Ingrese el nombre del proveedor :");
+          String nombre = sc.nextLine();
+          System.out.println("Ingrese la direccion del proveedor:");
+          String direccion = sc.nextLine();
+          System.out.println("Ingrese el telefono del proveedor:");
+          String telefono = sc.nextLine();
+          listaProveedores.add(new Proveedor("",nombre,direccion,telefono));
+        case 2:
+          salir = true;
+          break;   
+      }
+    }while(!salir);
+    sc.close();
+  }
+
+
+  
+  public void menu_admin(){
+    Scanner sc = new Scanner(System.in);
+    boolean salir = false;
+    int opcion; 
+    while (!salir) {
+      System.out.println("1. Administrar Clientes");
+      System.out.println("2. Administrar Proveedores");
+      System.out.println("3. Administrar servicios");
+      System.out.println("4. Salir");
+      System.out.println("Escribe una de las opciones");
+      opcion = sc.nextInt();
+      switch (opcion) {
+        case 1:
+          System.out.println("Has seleccionado la opcion 1");
+          Administrar_clientes();
+          break;
+        case 2:
+          System.out.println("Has seleccionado la opcion 2");
+          Administrar_proovedores();
+          break;
+        case 3:
+          System.out.println("Has seleccionado la opcion 3");
+          Administrar_servicios();
+          break;
+        case 4:
+          salir = true;
+          break;
+      }
+    }sc.close();
+  }
+}
